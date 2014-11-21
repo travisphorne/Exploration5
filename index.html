@@ -1,0 +1,223 @@
+<!doctype html>
+<html>
+	<style type="text/css">
+		#foo{
+			width:640;
+			height:360;
+		}
+		.megaKill{
+			animation:myfirst 1s linear 1s infinite alternate;
+			-webkit-animation:flash 1s linear 1s infinite;
+			-moz-animation:myfirst 1s linear 1s infinite alternate;
+		}
+		
+		@keyframes flash {
+			0% {color: #FF0066;}/*pink*/
+			20%{color: #0000FF;}/*blue*/
+			40%{color: #FFFF00;}/*yellow*/
+			60%{color: #00CC00;}/*green*/
+			80%{color: #CC0000;}/*red*/
+			100%{color: #9900CC;}/*purple*/
+			}
+
+			@-webkit-keyframes flash {
+			0% {color: #FF0066; /*pink*/
+			20%{color: #0000FF; /*blue*/
+			40%{color: #FFFF00; /*yellow*/
+			60%{color: #00CC00;}/*green*/
+			80%{color: #CC0000; /*red*/
+			100%{color: #9900CC;/*purple*/
+			}
+
+			@-moz-keyframes flash {
+			0% {color: #FF0066;}/*pink*/
+			20%{color: #0000FF;}/*blue*/
+			40%{color: #FFFF00;}/*yellow*/
+			60%{color: #00CC00;}/*green*/
+			80%{color: #CC0000;}/*red*/
+			100%{color: #9900CC;}/*purple*/
+			}	
+	</style>
+	<head>
+		<script src="http://popcornjs.org/code/dist/popcorn-complete.js"></script>
+	</head>
+	<body>
+		<script>
+			document.addEventListener("DOMContentLoaded", function () {
+				
+				//create the video instance
+				var pop = Popcorn("#myVideo");
+				var forEvents = document.getElementById("myVideo");
+				var button = document.getElementById("mahButton");
+				
+				//The kill footnotes
+				pop.footnote({
+					start: 101,
+					end: 106,
+					text: "  Sandking was killed!  ",
+					target: "foo"
+				});
+				pop.footnote({
+					start: 103,
+					end: 108,
+					text: "  Venomancer has been killed!  ",
+					target: "foo"
+				});
+				pop.footnote({
+					start: 260,
+					end: 265,
+					text: "  Leshrack has been killed!  ",
+					target: "foo"
+				});
+				pop.footnote({
+					start: 270,
+					end: 275,
+					text: "  Pudge has been killed!  ",
+					target: "foo"
+				});
+				pop.footnote({
+					start: 305,
+					end: 310,
+					text: "  Warlock has been killed!  ",
+					target: "foo"
+				});
+				pop.footnote({
+					start: 325,
+					end: 330,
+					text: "  Queen of pain has been killed!  ",
+					target: "foo"
+				});
+				pop.footnote({
+					start: 366,
+					end: 371,
+					text: "  Windrunner has been killed!  ",
+					target: "foo"
+				});
+				pop.footnote({
+					start: 372,
+					end: 377,
+					text: "  Venomancer has been killed!  ",
+					target: "foo"
+				});
+				pop.footnote({
+					start: 373,
+					end: 378,
+					text: "Leshrack was killed!",
+					target: "foo"
+				});
+				pop.footnote({
+					start: 400,
+					end: 405,
+					text: "  Pudge was killed!  ",
+					target: "foo"
+				});
+				pop.footnote({
+					start: 415,
+					end: 420,
+					text: "  Windrunner was killed!  ",
+					target: "foo"
+				});
+				pop.footnote({
+					start: 416,
+					end: 421,
+					text: "  Warlock was killed!  ",
+					target: "foo"
+				});
+				pop.footnote({
+					start: 427,
+					end: 432,
+					text: "  Venomancer has been killed!  ",
+					target: "foo"
+				});
+				pop.footnote({
+					start: 431,
+					end: 436,
+					text: "  Pudge has been killed!  ",
+					target: "foo"
+				});
+				
+				//Special event foot notes!
+				pop.footnote({
+					start: 100,
+					end: 105,
+					text: "  First blood!  ",
+					target: "spec",
+					effect: "applyclass",
+					applyclass: "megaKill"
+				});
+				pop.footnote({
+					start: 372,
+					end: 377,
+					text: "  Double kill!  ",
+					target: "spec",
+					effect: "applyclass",
+					applyclass: "megaKill"
+				});
+				pop.footnote({
+					start: 427,
+					end: 432,
+					text: "  Double kill!  ",
+					target: "spec",
+					effect: "applyclass",
+					applyclass: "megaKill"
+				});
+				pop.footnote({
+					start: 432,
+					end: 437,
+					text: "  Killing spree for Queen of Pain!",
+					target: "spec",
+					effect: "applyclass",
+					applyclass: "megaKill"
+				});
+				pop.footnote({
+					start: 443,
+					end: 453,
+					text: "  Windrunner has called gg! The game is over!  ",
+					target: "spec",
+					effect: "applyclass",
+					applyclass: "megaKill"
+				});
+				
+				//when paused
+				forEvents.addEventListener( "pause", 
+				function( e ) {
+						console.log( "pause fired!" );
+						pop.footnote({
+						start: pop.currentTime(),
+						end: pop.currentTime()+.00001,
+						text: "  You paused?!  ",
+						target: "status",
+					});
+				}, false );
+				
+				//when played
+				forEvents.addEventListener("play", function(e){
+					console.log("play fired!");
+					pop.footnote({
+					start: pop.currentTime(),
+					end: pop.currentTime()+1,
+					text: "  Aaaaaand we're playing! ",
+					target: "status",
+					});
+				}, false);
+				
+				//Go to first event button
+				button.addEventListener("click", function(e){
+					console.log("clicked the button :O");
+					pop.currentTime(100);
+				}, false);
+				
+				//play video
+				
+				pop.play();
+			}, false);
+		</script>
+		<video height="360" width="640" id="myVideo" controls>
+			<source src="dotaVideo.mp4">
+		</video>
+		<button id="mahButton">Go to first Event</button>
+		<div id="foo"></div>
+		<div id="spec"></div>
+		<div id="status"></div>
+	</body
+</html>
